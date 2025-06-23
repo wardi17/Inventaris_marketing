@@ -3,10 +3,7 @@
 class Router {
 
     public $controler =[
-         "sterming"      =>"JadwalStreaming",
-         "lap"            =>"Report",
-         "kamp"           =>"Kampanye",
-         "mont"             =>"Monitoring"
+         "msinv"      =>"InventarisController",
     ];
 
 

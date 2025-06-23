@@ -43,7 +43,7 @@ CREATE TABLE ms_User (
 
 -- Table: ms_Inventaris
 CREATE TABLE ms_Inventaris (
-    InventarisID INT IDENTITY(1,1) PRIMARY KEY,
+    InventarisID VARCHAR(100) PRIMARY KEY,
     NamaBarang NVARCHAR(250) NOT NULL,
     JenisBarang NVARCHAR(100) NOT NULL, -- e.g. Spanduk, Brosur, Sample, Bingkisan
     Stok INT NOT NULL DEFAULT 0,
@@ -54,6 +54,12 @@ CREATE TABLE ms_Inventaris (
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME DEFAULT GETDATE()
 );
+
+
+ALTER TABLE ms_Inventaris
+ADD userInput VARCHAR(100),
+userEdit VARCHAR(100)
+
 
 -- Table: ms_InventarisDetail
 CREATE TABLE ms_InventarisDetail (

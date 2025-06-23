@@ -105,7 +105,7 @@ $username = $data['username'];
           <h6 class="text-start">Manage Inventaris</h6>
         </div>
        <div id="root"></div>
-  
+        <div id="rootlist"></div>
       </div>
     </div>
  

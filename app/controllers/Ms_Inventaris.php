@@ -42,6 +42,11 @@ class Ms_Inventaris extends Controller{
     }
 
 
+
+
+
+    //batas kode
+
     public function GetlistToday(){
         $data= $this->model('KampanyeModel')->GetlistToday();
         if(empty($data)){

@@ -1,0 +1,56 @@
+{
+    "admin": [
+        {
+            "title": "Admin Dashboard",
+            "icon": "bi bi-grid-fill",
+            "link": "/admin_dashboard"
+        },
+        {
+            "title": "Manage Inventaris",
+            "icon": "fa-solid fa-box",
+            "link": "/manage_inventaris"
+        },
+        {
+            "title": "Manage SOP per Item",
+            "icon": "fa-solid fa-file-alt",
+            "link": "/manage_sop"
+        },
+        {
+            "title": "Set Stok Minimum dan Maksimum",
+            "icon": "fa-solid fa-cogs",
+            "link": "/set_stok"
+        },
+        {
+            "title": "Monitor Stock Levels",
+            "icon": "fa-solid fa-chart-line",
+            "link": "/monitor_stock"
+        },
+        {
+            "title": "View Reports",
+            "icon": "fa-solid fa-file-invoice",
+            "link": "/view_reports"
+        }
+    ],
+    "user": [
+        {
+            "title": "User  Dashboard",
+            "icon": "bi bi-person-circle",
+            "link": "/user_dashboard"
+        },
+        {
+            "title": "View Available Inventaris",
+            "icon": "fa-solid fa-box-open",
+            "link": "/view_inventaris"
+        },
+        {
+            "title": "Ajukan Permohonan Barang",
+            "icon": "fa-solid fa-paper-plane",
+            "link": "/ajukan_permohonan"
+        },
+        {
+            "title": "Laporan Penggunaan per User",
+            "icon": "fa-solid fa-file-alt",
+            "link": "/laporan_penggunaan"
+        }
+    ]
+}

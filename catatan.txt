@@ -1,0 +1,70 @@
+Analisis kebutuhan sistem yang Anda buat sudah mencakup beberapa aspek penting dari pengelolaan inventaris marketing dan promosi. Namun, ada beberapa hal yang perlu dilengkapi dan diperjelas agar sistem dapat berfungsi dengan baik sesuai dengan catatan yang Anda berikan. Berikut adalah beberapa saran dan tambahan untuk analisis kebutuhan sistem Anda:
+
+### 1. Level Pengguna
+- **Admin**: 
+  - Tugas admin sudah jelas, yaitu menginput data inventaris marketing, stok, dan biaya per item. 
+  - Tambahkan kemampuan untuk mengedit dan menghapus data inventaris.
+  - Admin juga harus dapat mengelola SOP untuk setiap item dan memastikan bahwa semua barang memiliki nomor item dan tanggal berlaku.
+
+- **User **: 
+  - User harus dapat melihat daftar inventaris yang tersedia dan melakukan pemotongan stok saat mengambil barang.
+  - Tambahkan fitur untuk mencetak atau mengunduh laporan penggunaan barang untuk keperluan audit dan evaluasi.
+
+### 2. Tabel Database
+- **Table `ms_Impentaris`**:
+  - Kolom yang disarankan: `id`, `nama_barang`, `jenis_barang`, `stok_minimum`, `stok_maksimum`, `harga_pokok`, `sop`, `tanggal_berlaku`, `status` (aktif/non-aktif).
+  
+- **Table `ms_ImpentarisDetail`**:
+  - Kolom yang disarankan: `id`, `id_barang`, `nomor_item`, `deskripsi`, `tanggal_input`, `status` (aktif/non-aktif).
+  
+- **Table `ts_Pengabilan_Impentaris`**:
+  - Kolom yang disarankan: `id`, `id_barang`, `id_user`, `jumlah`, `tanggal_pengambilan`, `keterangan`, `status_transaksi`.
+
+### 3. Proses Pengelolaan
+- **SOP Penggunaan & Permohonan**:
+  - Pastikan ada modul untuk mengelola SOP yang dapat diakses oleh admin dan user.
+  
+- **Pencatatan Biaya Marketing**:
+  - Tambahkan fitur untuk mencatat biaya marketing berdasarkan penggunaan barang, sehingga dapat diintegrasikan dengan laporan keuangan.
+
+- **Stock Taking dan Inventory**:
+  - Rencanakan fitur untuk melakukan stock taking secara berkala, termasuk penghitungan fisik dan pembaruan data di sistem.
+
+### 4. Tujuan Jangka Panjang
+- **Sistem yang Tertib dan Teratur**:
+  - Rencanakan untuk mengimplementasikan sistem notifikasi untuk mengingatkan admin dan user tentang stok minimum dan tanggal kedaluwarsa barang.
+  - Pertimbangkan untuk menggunakan teknologi barcode atau QR code untuk memudahkan pengelolaan inventaris.
+
+### 5. Laporan dan Analisis
+- Tambahkan fitur untuk menghasilkan laporan penggunaan barang, sisa stok, dan biaya marketing secara berkala.
+- Rencanakan untuk menyediakan dashboard yang memberikan gambaran umum tentang status inventaris dan penggunaan barang.
+
+Dengan melengkapi dan memperjelas aspek-aspek di atas, sistem yang Anda rencanakan akan lebih sesuai dengan kebutuhan pengelolaan inventaris marketing dan promosi yang telah Anda jabarkan.
+
+
+
+
+
+Flowchart akan mencakup:
+- Login dan level user (admin / user)
+- Admin memasukkan / mengelola data inventaris dan SOP
+- User melakukan pengambilan barang, stok berkurang, transaksi tercatat
+- Sistem cek stok minimum/maksimum
+- Proses laporan dan stock taking
+
+Database akan terdiri dari tabel:
+- ms_Inventaris (informasi barang dan stok)
+- ms_InventarisDetail (detail item, nomor item, tanggal berlaku)
+- ts_Pengambilan_Inventaris (transaksi pengambilan oleh user)
+- ms_User (user dan role)
+- ms_SOP (SOP per item)
+- ts_Biaya_Marketing (pencatatan biaya berdasar penggunaan)
+
+Relasi antar tabel: User ke Transaksi Pengambilan, Inventaris ke Detail & SOP & Transaksi, dll.
+
+Saya akan buat diagram terstruktur dan script SQL Server lengkap dengan relasi foreign key.
+
+Proses selanjutnya adalah menuliskan flowchart dalam teks terstruktur dan diagram database, lalu buat kode SQL.
+
+
+

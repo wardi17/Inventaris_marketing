@@ -1,6 +1,7 @@
 
 import Ms_Inventaris from './componets/Ms_Inventaris.js';
 import MsInventarisList from './componets/MsInventarisList.js';
+
 $(document).ready(function () {
    
 const url = new URL(window.location.href);
@@ -9,6 +10,13 @@ const lastSegment = pathSegments.filter(Boolean).pop(); // filter untuk hilangka
 // Kondisi berdasarkan segmen terakhir URL
    new Ms_Inventaris("#root");
    new MsInventarisList("#rootlist");
+
+
+
+  
+     
+       
+   //and 
 });
 
 

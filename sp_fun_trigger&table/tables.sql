@@ -52,7 +52,9 @@ CREATE TABLE ms_Inventaris (
     HargaPokok DECIMAL(18,2) NOT NULL, -- HPP per unit
     Status BIT DEFAULT 1, -- 1=active, 0=inactive
     CreatedAt DATETIME DEFAULT GETDATE(),
-    UpdatedAt DATETIME DEFAULT GETDATE()
+    UpdatedAt DATETIME DEFAULT GETDATE(),
+    userInput VARCHAR(100),
+    userEdit VARCHAR(100)
 );
 
 

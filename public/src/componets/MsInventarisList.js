@@ -1,4 +1,5 @@
 import { baseUrl } from '../config.js';
+import EditMsInventaris from './FormEditInventaris.js';
 
 class MsInventarisList {
   constructor(containerSelector) {
@@ -64,53 +65,86 @@ class MsInventarisList {
     });
   }
 
-  renderTable(data) {
-    const table = document.createElement('table');
-    table.className = 'table table-striped';
-    table.id='table1';
-    const thead = `
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nama Barang</th>
-          <th>Jenis</th>
-          <th class="text-end">Stok</th>
-          <th class="text-end">Minium</th>
-          <th class="text-end">Harga Pokok</th>
-          <th class="text-end">Maksimum</th>
-          <th>Action</th>
-          
-        </tr>
-      </thead>
-    `;
+ renderTable(data) {
+  const table = document.createElement('table');
+  table.className = 'table table-striped';
+  table.id = 'table1';
 
-    const tbodyRows = data.map(item => `
+  const thead = `
+    <thead id="thead">
       <tr>
-        <td>${item.InventarisID}</td>
-        <td>${item.NamaBarang}</td>
-        <td>${item.JenisBarang}</td>
-        <td class="text-end">${item.Stok}</td>
-        <td class="text-end">${item.StokMinimum}</td>
-        <td class="text-end">${item.StokMaksimum}</td>
-        <td class="text-end">${item.HargaPokok}</td>
-        <td><button type="button" class="btn- btn-info" id="EditData" data-id='${item.InventarisID}'>Edit</button></td>
+        <th>ID</th>
+        <th>Nama Barang</th>
+        <th>Jenis</th>
+        <th class="text-end">Stok</th>
+        <th class="text-end">Minimum</th>
+        <th class="text-end">Harga Pokok</th>
+        <th class="text-end">Maksimum</th>
+        <th>Action</th>
       </tr>
-    `).join('');
+    </thead>
+  `;
 
-    table.innerHTML = thead + `<tbody>${tbodyRows}</tbody>`;
-    this.container.innerHTML = ''; // Clear the container
-    this.container.appendChild(table);
-    this.Tampildatatabel();
-  }
+  const tbodyRows = data.map(item => `
+    <tr>
+      <td>${item.InventarisID}</td>
+      <td>${item.NamaBarang}</td>
+      <td>${item.JenisBarang}</td>
+      <td class="text-end">${item.Stok}</td>
+      <td class="text-end">${item.StokMinimum}</td>
+      <td class="text-end">${item.HargaPokok}</td>
+      <td class="text-end">${item.StokMaksimum}</td>
+      <td>
+        <button type="button" class="btn btn-info edit-data btn-sm" 
+        data-id="${item.InventarisID}"
+        data-namabarang="${item.NamaBarang}"
+        data-jenisbarang="${item.JenisBarang}"
+        data-stok="${item.Stok}"
+        data-stokminimum="${item.StokMinimum}"
+        data-hargapokok="${item.HargaPokok}"
+        data-stokmaksimum="${item.StokMaksimum}"
+        >Edit</button>
+      </td>
+    </tr>
+  `).join('');
+
+  table.innerHTML = thead + `<tbody>${tbodyRows}</tbody>`;
+
+  this.container.innerHTML = ''; // Kosongkan container
+  this.container.appendChild(table);
+  this.Tampildatatabel();
+
+  // Tambahkan event listener setelah table dimasukkan ke DOM
+  const buttons = table.querySelectorAll('.edit-data');
+  buttons.forEach(button => {
+   button.addEventListener('click', (e) => {
+        const el = e.currentTarget;
+        const datas = {
+          id: el.getAttribute('data-id'),
+          namabarang: el.getAttribute('data-namabarang'),
+          jenisbarang: el.getAttribute('data-jenisbarang'),
+          stok: el.getAttribute('data-stok'),
+          stokminimum: el.getAttribute('data-stokminimum'),
+          hargapokok: el.getAttribute('data-hargapokok'),
+          stokmaksimum: el.getAttribute('data-stokmaksimum')
+        };
+
+        new EditMsInventaris(datas);
+    });
+
+  });
+}
+
 
   showLoading() {
     // Implement your loading logic here, e.g., show a spinner or loading message
     this.container.innerHTML = '<p>Loading...</p>';
   }
 
-     Tampildatatabel(){
 
-          const id = "#tabel1";
+
+     Tampildatatabel(){
+          const id = "#table1";
           $(id).DataTable({
               order: [[0, 'asc']],
                 responsive: true,
@@ -128,3 +162,6 @@ class MsInventarisList {
 }
 
 export default MsInventarisList;
+
+
+

@@ -1,6 +1,6 @@
 
 <?php
-
+date_default_timezone_set('Asia/Jakarta'); 
  class MsInventarisModel  extends Models{
         private $table_ms ="[um_db].[dbo].ms_Inventaris";
 
@@ -89,5 +89,70 @@
 }
 
 
+
+      public function UpdateData(){
+         $rawData = file_get_contents("php://input");
+        $post = json_decode($rawData, true);
+     
+       
+
+        $InventarisID = $this->test_input($post["InventarisID"]);
+        $NamaBarang   = $this->test_input($post["NamaBarang"]);
+        $JenisBarang  = $this->test_input($post["JenisBarang"]);
+        $Stok         = $this->test_input($post["Stok"]);
+        $StokMinimum  = $this->test_input($post["StokMinimum"]);
+        $StokMaksimum = $this->test_input($post["StokMaksimum"]);
+        $HargaPokok   = $this->test_input($post["HargaPokok"]);
+        $userid       = "System";
+        $UpdatedAt    = date("Y-m-d H:i:s");
+
+        $query ="UPDATE $this->table_ms SET NamaBarang='{$NamaBarang}', JenisBarang='{$JenisBarang}',Stok='{$Stok}',
+        StokMinimum='{$StokMinimum}',StokMaksimum='{$StokMaksimum}', HargaPokok='{$HargaPokok}' ,userEdit='{$userid}',UpdatedAt='{$UpdatedAt}'
+        WHERE InventarisID ='{$InventarisID}'
+        ";
+
+        $result = $this->db->baca_sql($query);
+        // Buat response
+        if ($result) {
+            $pesan = [
+                'nilai' => 1,
+                'error' => 'Berhasil Update data'
+            ];
+        } else {
+            $pesan = [
+                'nilai' => 0,
+                'error' => 'Data Gagal DiUpate'
+            ];
+        }
+
+        return $pesan;
+      }
+
+
     
+      public function DeleteData(){
+          $rawData = file_get_contents("php://input");
+        $post = json_decode($rawData, true);
+     
+       
+
+        $InventarisID = $this->test_input($post["InventarisID"]);
+
+        $query ="DELETE FROM $this->table_ms   WHERE InventarisID ='{$InventarisID}'";
+            $result = $this->db->baca_sql($query);
+        // Buat response
+        if ($result) {
+            $pesan = [
+                'nilai' => 1,
+                'error' => 'Berhasil Delete data'
+            ];
+        } else {
+            $pesan = [
+                'nilai' => 0,
+                'error' => 'Data Gagal Delete'
+            ];
+        }
+
+        return $pesan;
+      }
  }

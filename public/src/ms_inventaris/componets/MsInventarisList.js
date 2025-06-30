@@ -1,4 +1,4 @@
-import { baseUrl } from '../config.js';
+import { baseUrl } from '../../config.js';
 import EditMsInventaris from './FormEditInventaris.js';
 
 class MsInventarisList {
@@ -74,8 +74,8 @@ class MsInventarisList {
     <thead id="thead">
       <tr>
         <th>ID</th>
+        <th>Kategori</th>
         <th>Nama Barang</th>
-        <th>Jenis</th>
         <th class="text-end">Stok</th>
         <th class="text-end">Minimum</th>
         <th class="text-end">Harga Pokok</th>
@@ -88,8 +88,8 @@ class MsInventarisList {
   const tbodyRows = data.map(item => `
     <tr>
       <td>${item.InventarisID}</td>
+      <td>${item.NamaKategori}</td>
       <td>${item.NamaBarang}</td>
-      <td>${item.JenisBarang}</td>
       <td class="text-end">${item.Stok}</td>
       <td class="text-end">${item.StokMinimum}</td>
       <td class="text-end">${item.HargaPokok}</td>
@@ -98,7 +98,7 @@ class MsInventarisList {
         <button type="button" class="btn btn-info edit-data btn-sm" 
         data-id="${item.InventarisID}"
         data-namabarang="${item.NamaBarang}"
-        data-jenisbarang="${item.JenisBarang}"
+        data-kategoriid="${item.KategoriID}"
         data-stok="${item.Stok}"
         data-stokminimum="${item.StokMinimum}"
         data-hargapokok="${item.HargaPokok}"
@@ -122,7 +122,7 @@ class MsInventarisList {
         const datas = {
           id: el.getAttribute('data-id'),
           namabarang: el.getAttribute('data-namabarang'),
-          jenisbarang: el.getAttribute('data-jenisbarang'),
+          kategoriid: el.getAttribute('data-kategoriid'),
           stok: el.getAttribute('data-stok'),
           stokminimum: el.getAttribute('data-stokminimum'),
           hargapokok: el.getAttribute('data-hargapokok'),

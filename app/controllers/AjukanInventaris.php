@@ -1,6 +1,6 @@
 <?php
 
-class Ms_Inventaris extends Controller{
+class AjukanInventaris extends Controller{
 
 
     private $userid;
@@ -34,10 +34,10 @@ class Ms_Inventaris extends Controller{
     
         $data["userid"]= $this->userid;
         $data["username"]= $this->username;
-        $data["pages"]="msinv";
+        $data["pages"]="ajukan";
         $this->view('templates/header');
         $this->view('templates/sidebar', $data);
-        $this->view('ms_inventaris/index',$data);
+        $this->view('ajukaninventaris/index',$data);
         $this->view('templates/footer');
     }
 

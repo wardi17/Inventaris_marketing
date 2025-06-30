@@ -31,21 +31,32 @@
 -- DATABASE SCHEMA FOR SQL SERVER
 
 -- Table: ms_User
-CREATE TABLE ms_User (
-    UserID INT IDENTITY(1,1) PRIMARY KEY,
-    UserName NVARCHAR(150) NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(256) NOT NULL,
-    FullName NVARCHAR(250) NOT NULL,
-    Role NVARCHAR(50) NOT NULL CHECK (Role IN ('admin','user')),
-    CreatedAt DATETIME DEFAULT GETDATE(),
-    IsActive BIT DEFAULT 1
-);
+-- CREATE TABLE ms_User (
+--     UserID INT IDENTITY(1,1) PRIMARY KEY,
+--     UserName NVARCHAR(150) NOT NULL UNIQUE,
+--     PasswordHash NVARCHAR(256) NOT NULL,
+--     FullName NVARCHAR(250) NOT NULL,
+--     Role NVARCHAR(50) NOT NULL CHECK (Role IN ('admin','user')),
+--     CreatedAt DATETIME DEFAULT GETDATE(),
+--     IsActive BIT DEFAULT 1
+-- );
+
+--Table: ms_KategoriInvenaris
+  CREATE TABLE ms_KategoriInvenaris(
+    KategoriID VARCHAR(100) PRIMARY KEY,
+    NamaKategori  NVARCHAR(100) NOT NULL
+  )
+
+INSERT INTO ms_KategoriInvenaris(KategoriID,NamaKategori)VALUES('KT.25001','Spanduk');
+INSERT INTO ms_KategoriInvenaris(KategoriID,NamaKategori)VALUES('KT.25002','Brosur');
+INSERT INTO ms_KategoriInvenaris(KategoriID,NamaKategori)VALUES('KT.25003','Sample');
+INSERT INTO ms_KategoriInvenaris(KategoriID,NamaKategori)VALUES('KT.25004','Bingkisan');
 
 -- Table: ms_Inventaris
 CREATE TABLE ms_Inventaris (
     InventarisID VARCHAR(100) PRIMARY KEY,
     NamaBarang NVARCHAR(250) NOT NULL,
-    JenisBarang NVARCHAR(100) NOT NULL, -- e.g. Spanduk, Brosur, Sample, Bingkisan
+    KategoriID VARCHAR(100) NOT NULL, -- e.g. Spanduk, Brosur, Sample, Bingkisan
     Stok INT NOT NULL DEFAULT 0,
     StokMinimum INT NOT NULL DEFAULT 0,
     StokMaksimum INT NOT NULL DEFAULT 0,
@@ -54,47 +65,49 @@ CREATE TABLE ms_Inventaris (
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME DEFAULT GETDATE(),
     userInput VARCHAR(100),
-    userEdit VARCHAR(100)
+    userEdit VARCHAR(100),
+    FOREIGN KEY (KategoriID) REFERENCES ms_KategoriInvenaris(KategoriID)
 );
 
 
-ALTER TABLE ms_Inventaris
-ADD userInput VARCHAR(100),
-userEdit VARCHAR(100)
+---sampai sinih
+
+
+
 
 
 -- Table: ms_InventarisDetail
-CREATE TABLE ms_InventarisDetail (
-    DetailID INT IDENTITY(1,1) PRIMARY KEY,
-    InventarisID INT NOT NULL,
-    NomorItem NVARCHAR(100) NOT NULL, -- Unique nomor item katalog/brosur no, dll
-    Deskripsi NVARCHAR(500) NULL,
-    TanggalBerlaku DATE NOT NULL,
-    Status BIT DEFAULT 1, -- aktif/nonaktif
-    CreatedAt DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (InventarisID) REFERENCES ms_Inventaris(InventarisID)
-);
+-- CREATE TABLE ms_InventarisDetail (
+--     DetailID INT IDENTITY(1,1) PRIMARY KEY,
+--     InventarisID INT NOT NULL,
+--     NomorItem NVARCHAR(100) NOT NULL, -- Unique nomor item katalog/brosur no, dll
+--     Deskripsi NVARCHAR(500) NULL,
+--     TanggalBerlaku DATE NOT NULL,
+--     Status BIT DEFAULT 1, -- aktif/nonaktif
+--     CreatedAt DATETIME DEFAULT GETDATE(),
+ 
+-- );
 
 -- Table: ms_SOP
-CREATE TABLE ms_SOP (
-    SOPID INT IDENTITY(1,1) PRIMARY KEY,
-    InventarisID INT NOT NULL,
-    SOPText NVARCHAR(MAX) NOT NULL, -- SOP detail text or URL/file reference
-    CreatedAt DATETIME DEFAULT GETDATE(),
-    UpdatedAt DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (InventarisID) REFERENCES ms_Inventaris(InventarisID)
-);
+-- CREATE TABLE ms_SOP (
+--     SOPID INT IDENTITY(1,1) PRIMARY KEY,
+--     InventarisID INT NOT NULL,
+--     SOPText NVARCHAR(MAX) NOT NULL, -- SOP detail text or URL/file reference
+--     CreatedAt DATETIME DEFAULT GETDATE(),
+--     UpdatedAt DATETIME DEFAULT GETDATE(),
+--     FOREIGN KEY (InventarisID) REFERENCES ms_Inventaris(InventarisID)
+-- );
 
 -- Table: ts_Pengambilan_Inventaris
 CREATE TABLE ts_Pengambilan_Inventaris (
     TransaksiID INT IDENTITY(1,1) PRIMARY KEY,
-    InventarisID INT NOT NULL,
+    InventarisID VARCHAR(100) NULL,
     UserID INT NOT NULL,
     Jumlah INT NOT NULL CHECK (Jumlah > 0),
     TanggalPengambilan DATETIME DEFAULT GETDATE(),
     Keterangan NVARCHAR(500) NULL,
-    FOREIGN KEY (InventarisID) REFERENCES ms_Inventaris(InventarisID),
-    FOREIGN KEY (UserID) REFERENCES ms_User(UserID)
+    FOREIGN KEY (InventarisID) REFERENCES ms_Inventaris(InventarisID)
+    --FOREIGN KEY (UserID) REFERENCES ms_User(UserID)
 );
 
 -- Table: ts_Biaya_Marketing

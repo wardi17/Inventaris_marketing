@@ -100,54 +100,11 @@ $username = $data['username'];
             <!-- Default box -->
             <div class="card">
       <div class="card-body">
-        <!-- Judul Halaman -->
-        <div class="mb-4">
-          <h6 class="text-start">Input Hasil Kampanye digital</h6>
-        </div>
-
-        <!-- Filter -->
-        <div class="row align-items-end">
-              <!-- Tahun -->
-              <div class="col-12 col-md-2 col-lg-2 mb-2">
-                  <div class="form-group">
-                      <label for="tahun" class="form-label">Tahun</label>
-                      <select class ="form-control" id="filter_tahun"></select>
-                 </div>
-              </div>
-
-              <!-- To -->
-              <div class="col-12 col-md-4 col-lg-2 mb-2">
-                  <div class="form-group">
-                      <label for="bulan" class="form-label">Bulan</label>
-                      <select class ="form-control" id="filter_bulan"></select>
-                      </div>
-              </div>
-
-              <!-- Submit Button -->
-              <div class="col-12 col-md-1 col-lg-2 mb-2">
-                  <div class="form-group d-flex justify-content-start" id="Pilter">
-                      <button type="submit" class="btn btn-primary me-3" id="Createdata">Submit</button>
-                  </div>
-              </div>
-          </div>
-
-  
+       <div id="root"></div>
       </div>
     </div>
-    <div class="card">
-       <div class="card-body">
-        
-             <div  id="digitalinput"></div>
-       </div>
-    </div>
-    
-              <!-- /.card-body -->
+ 
+                <!-- /.card-body -->
   </div>
-      </div>
-      <script type="module">
-        import { DropdownHelper } from "<?= base_url; ?>/assets/js/dropdown-helper.js";
-        const dropdown = new DropdownHelper("#filter_tahun", "#filter_bulan");
-        dropdown.init();
-     </script>
-
-<script type="module" src="<?= base_url; ?>/assets/js/componets/classdigital/index.js"></script>
+      </div> 
+<script type="module" src="<?= base_url; ?>/src/ts_permohonan/main.js"></script>

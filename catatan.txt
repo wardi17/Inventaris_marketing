@@ -67,4 +67,8 @@ Saya akan buat diagram terstruktur dan script SQL Server lengkap dengan relasi f
 Proses selanjutnya adalah menuliskan flowchart dalam teks terstruktur dan diagram database, lalu buat kode SQL.
 
 
+saya ada progaram menggunakan wordpress , 
+saya mau membuat  saat di wordpress pesan barang  akan automatis  kekirim datanya ke php rest api databse sql server apa sajah yang harus saya siapkan 
+agar terinergasi automatis 
+
 

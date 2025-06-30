@@ -1,4 +1,4 @@
-import { baseUrl } from '../config.js';
+import { baseUrl } from '../../config.js';
 import { goBack } from '../main.js';
 class MsInventaris {
   constructor(containerSelector) {
@@ -62,6 +62,7 @@ class MsInventaris {
     });
 
     modalInstance.show();
+    this.renderKategori();
   }
 
   createModal() {
@@ -82,7 +83,16 @@ class MsInventaris {
           </div>
           <div class="modal-body">
             <form id="add-form">
-              ${this.renderFormFields(idinventaris)}
+             <div class="row mb-12 mb-2">
+                <label for="kategoriSelect"  class="col-sm-2 col-form-label">Kategori</label>
+               <div class="col-sm-4">
+                <select id="kategoriSelect" name ="kategoriSelect" class="form-select">
+                  <option value="">Memuat...</option>
+                </select>
+                 <span id="kategoriSelectError" class="error"></span>
+                </div>
+              </div>
+               ${this.renderFormFields(idinventaris)}
             </form>
           </div>
           <div class="modal-footer">
@@ -93,19 +103,44 @@ class MsInventaris {
       </div>
     `;
     return modal;
+     
   }
+
+  renderKategori() {
+      $.ajax({
+        url: `${baseUrl}/router/seturl`,
+        method: "GET",
+        dataType: "json",
+        headers: { 'url': 'msinv/getkatgori' },
+        success: function (result) {
+          const data = result.data;
+          const $select = $('#kategoriSelect');
+          $select.empty();
+          $select.append(`<option value="">-- Pilih Kategori --</option>`);
+          data.forEach(item => {
+            $select.append(`<option value="${item.id}">${item.name}</option>`);
+          });
+        },
+        error: function () {
+          console.error("Gagal mengambil data kategori");
+        }
+      });
+    }
+
+
 
   renderFormFields(idinventaris) {
     return `
       ${this.renderInput('InventarisID', 'Inventaris ID', 'text', idinventaris, true)}
       ${this.renderInput('NamaBarang', 'Nama Barang')}
-      ${this.renderInput('JenisBarang', 'Jenis Barang')}
       ${this.renderInput('Stok', 'Stok', 'number', '', false, 'text-end')}
       ${this.renderInput('StokMinimum', 'Stok Minimum', 'number', '', false, 'text-end')}
       ${this.renderInput('StokMaksimum', 'Stok Maksimum', 'number', '', false, 'text-end')}
       ${this.renderInput('HargaPokok', 'Harga Pokok', 'number', '', false, 'text-end')}
     `;
   }
+
+
 
   renderInput(id, label, type = 'text', value = '', disabled = false, extraClass = '') {
     return `
@@ -118,6 +153,7 @@ class MsInventaris {
       </div>
     `;
   }
+
 
   async saveDataFrom(event) {
     const dataInput = await this.validateInput(event);
@@ -201,7 +237,7 @@ class MsInventaris {
 
     const fields = [
       { id: 'NamaBarang', name: 'NamaBarang' },
-      { id: 'JenisBarang', name: 'JenisBarang' },
+      { id: 'kategoriSelect', name: 'kategoriSelect' },
       { id: 'Stok', name: 'Stok', checkZero: true },
       { id: 'StokMinimum', name: 'StokMinimum', checkZero: true },
       { id: 'StokMaksimum', name: 'StokMaksimum', checkZero: true },
@@ -225,7 +261,7 @@ class MsInventaris {
     return {
       InventarisID: getValue('InventarisID'),
       NamaBarang: getValue('NamaBarang'),
-      JenisBarang: getValue('JenisBarang'),
+      Kategori: getValue('kategoriSelect'),
       Stok: getValue('Stok'),
       StokMinimum: getValue('StokMinimum'),
       StokMaksimum: getValue('StokMaksimum'),

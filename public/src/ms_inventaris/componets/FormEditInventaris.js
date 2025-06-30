@@ -1,4 +1,4 @@
-import { baseUrl } from '../config.js';
+import { baseUrl } from '../../config.js';
 import { goBack } from '../main.js';
 
 class EditMsInventaris {
@@ -67,6 +67,7 @@ class EditMsInventaris {
     const modal = this.createModal();
     this.rootElement.appendChild(modal);
     this.initializeModal(modal);
+    this.renderKategori();
   }
 
   removeOldModal() {
@@ -94,6 +95,15 @@ class EditMsInventaris {
           </div>
           <div class="modal-body">
             <form id="edit-form">
+              <div class="row mb-12 mb-2">
+                <label for="kategoriSelectEdit"  class="col-sm-2 col-form-label">Kategori</label>
+               <div class="col-sm-4">
+                <select id="kategoriSelectEdit" name ="kategoriSelectEdit" class="form-select">
+                  <option value="">Memuat...</option>
+                </select>
+                 <span id="kategoriSelectEditError" class="error"></span>
+                </div>
+              </div>
               ${this.renderFormFields(this.datas)}
             </form>
           </div>
@@ -106,6 +116,32 @@ class EditMsInventaris {
       </div>
     `;
   }
+
+    renderKategori() {
+      
+      let datas =this.datas;
+      const ktgID = datas.kategoriid;
+      $.ajax({
+        url: `${baseUrl}/router/seturl`,
+        method: "GET",
+        dataType: "json",
+        headers: { 'url': 'msinv/getkatgori' },
+        success: function (result) {
+          const data = result.data;
+          const $select = $('#kategoriSelectEdit');
+          $select.empty();
+         
+          data.forEach(item => {
+            $select.append(`<option value="${item.id}"  ${ktgID == item.id ? "selected" : ""} >${item.name}</option>`);
+          });
+        },
+        error: function () {
+          console.error("Gagal mengambil data kategori");
+        }
+      });
+    }
+
+
 
   initializeModal(modal) {
     const bsModal = new bootstrap.Modal(modal);
@@ -144,7 +180,7 @@ class EditMsInventaris {
 
     const fields = [
       { id: 'NamaBarang_Edit', name: 'Nama Barang' },
-      { id: 'JenisBarang_Edit', name: 'Jenis Barang' },
+      { id: 'kategoriSelectEdit', name: 'Kategori' },
       { id: 'Stok_Edit', name: 'Stok', checkZero: true },
       { id: 'StokMinimum_Edit', name: 'Stok Minimum', checkZero: true },
       { id: 'StokMaksimum_Edit', name: 'Stok Maksimum', checkZero: true },
@@ -168,7 +204,7 @@ class EditMsInventaris {
     return {
       InventarisID: getValue('InventarisID_Edit'),
       NamaBarang: getValue('NamaBarang_Edit'),
-      JenisBarang: getValue('JenisBarang_Edit'),
+      Kategori: getValue('kategoriSelectEdit'),
       Stok: getValue('Stok_Edit'),
       StokMinimum: getValue('StokMinimum_Edit'),
       StokMaksimum: getValue('StokMaksimum_Edit'),

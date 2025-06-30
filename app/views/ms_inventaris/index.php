@@ -113,4 +113,4 @@ $username = $data['username'];
   </div>
       </div>
 
-<script type="module" src="<?= base_url; ?>/src/main.js"></script>
+<script type="module" src="<?= base_url; ?>/src/ms_inventaris/main.js"></script>
